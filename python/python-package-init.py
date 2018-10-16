@@ -1,5 +1,5 @@
 #! /usr/bin/env nix-shell
-#! nix-shell -i python3 -p python3 python36Packages.jinja2 python36Packages.setuptools
+#! nix-shell -i python3 -p python3 python36Packages.jinja2 python36Packages.setuptools 
 
 import urllib.request
 import json
@@ -17,6 +17,11 @@ import jinja2
 
 
 def main():
+    
+    for a in os.environ:
+        print('Var: ', a, 'Value: ', os.getenv(a))
+    print("all done")
+    
     parser = argparse.ArgumentParser()
     parser.add_argument('package', help="pypi package name")
     parser.add_argument('--version', help="pypi package version (stable if not specified)")
