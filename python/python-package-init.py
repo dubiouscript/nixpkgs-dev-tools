@@ -1,5 +1,5 @@
 #! /usr/bin/env nix-shell
-#! nix-shell -i python3 -p python3 python36Packages.jinja2 python36Packages.setuptools 
+#! nix-shell -i python3 -p python3 python36Packages.jinja2 python36Packages.setuptools --pure 
 
 import urllib.request
 import json
@@ -168,7 +168,7 @@ def determine_package_dependencies(package_json, url):
 
 
 def determine_dependencies_from_package(url):
-    stdout = subprocess.check_output(['nix-prefetch-url', '--unpack', url], stderr=subprocess.STDOUT)
+    stdout = subprocess.check_output([[os.environ["HOME"]+'/.nix-profile/bin/nix-prefetch-url', '--unpack', url], stderr=subprocess.STDOUT)
     nix_store_path = re.search(b"^unpacking...\npath is '(.*)'\n(.*)\n$", stdout).group(1)
     sys.path.append('.')
 
